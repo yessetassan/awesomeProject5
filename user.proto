@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package user;
+
+// The User message defines the structure of a user's information.
+message User {
+  int32 id = 1;      // Unique identifier for the user.
+  string name = 2;   // Name of the user.
+  string email = 3;  // Email address of the user.
+}
+
+// The UserId message is used to request a user by their unique identifier.
+message UserId {
+  int32 id = 1;
+}
+
+// The UserList message defines a list of users to be returned by ListUsers.
+message UserList {
+  repeated User users = 1; // List of users.
+}
+
+// The Empty message is used for requests that do not require parameters.
+message Empty {}
+
+// The UserService defines the RPC methods available.
+service UserService {
+  rpc AddUser(User) returns (UserId);      // Adds a new user and returns their ID.
+  rpc GetUser(UserId) returns (User);      // Retrieves a user by their ID.
+  rpc ListUsers(Empty) returns (UserList); // Returns a list of all users.
+}
